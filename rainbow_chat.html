@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainbow Background Chat</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            animation: rainbow 10s linear infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { background: #ff0000; }
+            14% { background: #ff8000; }
+            28% { background: #ffff00; }
+            42% { background: #80ff00; }
+            57% { background: #00ff00; }
+            71% { background: #00ff80; }
+            85% { background: #00ffff; }
+            100% { background: #0080ff; }
+        }
+
+        .chat-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-box">
+        <div class="chat-title">Free Chat GPT Seconde 3</div>
+        <div class="chat-messages">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <input type="text" class="chat-input" placeholder="Type your message...">
+    </div>
+
+    <script>
+        // Replace this with your own API endpoint
+        const apiEndpoint = "YOUR_API_ENDPOINT";
+
+        // Function to send a message to the chat
+        function sendMessage() {
+            const messageInput = document.querySelector(".chat-input");
+            const message = messageInput.value.trim();
+
+            if (message !== "") {
+                // You can send the message to your API here
+                // Example: Use fetch to send the message to your API
+                fetch(apiEndpoint, {
+                    method: "POST",
+                    body: JSON.stringify({ message }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from your API here
+                    // Display the response in the chat box
+                    const chatMessages = document.querySelector(".chat-messages");
+                    const messageElement = document.createElement("div");
+                    messageElement.textContent = data.response; // Assuming your API returns a response field
+                    chatMessages.appendChild(messageElement);
+
+                    // Clear the input field
+                    messageInput.value = "";
+                })
+                .catch(error => {
+                    console.error("Error sending message:", error);
+                });
+            }
+        }
+
+        // Attach the sendMessage function to the input field's Enter key press
+        const messageInput = document.querySelector(".chat-input");
+        messageInput.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
