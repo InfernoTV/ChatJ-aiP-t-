@@ -1,5 +1,5 @@
 // Replace this with your own API endpoint
-const apiEndpoint = "YOUR_API_ENDPOINT";
+const apiEndpoint = "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";
 
 // Function to send a message to the chat
 function sendMessage() {
