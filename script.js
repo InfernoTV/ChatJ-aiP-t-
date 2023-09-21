@@ -1,43 +1,15 @@
-const catContainer = document.getElementById('cat-container');
+// Replace this with your own API endpoint
+const apiEndpoint = "YOUR_API_ENDPOINT";
 
-// Function to fetch cat images from an API
-async function fetchCatImages() {
-  try {
-    const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=20');
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching cat images:', error);
-    return [];
-  }
+// Function to send a message to the chat
+function sendMessage() {
+    // Your sendMessage function code here
 }
 
-// Function to create cat cards and append to the container
-function createCatCards(catImages) {
-  catImages.forEach(catImage => {
-    const catCard = document.createElement('div');
-    catCard.className = 'cat-card';
-
-    const catImageElement = document.createElement('img');
-    catImageElement.className = 'cat-image';
-    catImageElement.src = catImage.url;
-    catImageElement.alt = 'Cat';
-
-    catCard.appendChild(catImageElement);
-    catContainer.appendChild(catCard);
-  });
-}
-
-// Function to handle scroll event and fetch more cat images
-async function handleScroll() {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    const catImages = await fetchCatImages();
-    createCatCards(catImages);
-  }
-}
-
-// Event listener for scroll event
-window.addEventListener('scroll', handleScroll);
-
-// Initial fetch and rendering of cat images
-fetchCatImages().then(createCatCards);
+// Attach the sendMessage function to the input field's Enter key press
+const messageInput = document.querySelector(".chat-input");
+messageInput.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+});
